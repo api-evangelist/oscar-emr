@@ -1,0 +1,48 @@
+generated: '2026-07-24'
+method: searched
+source:
+- https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
+- https://github.com/scoophealth/oscar
+note: >-
+  Cross-cutting semantics for the OSCAR REST web-services layer, captured from the developer wiki
+  and the JAX-RS service source. As self-hosted software these apply per deployment; host and web
+  context are deployment-specific (documented example http://localhost:8080/oscar_15/ws/services).
+authentication:
+  style: OAuth 1.0a (3-legged), Authorization header
+  challenge: HTTP 401 when authorization is required, triggering the OAuth flow
+  detail: authentication/oscar-emr-authentication.yml
+base_path: /ws/services
+resource_style: >-
+  One JAX-RS service per clinical domain (e.g. scheduleService, demographicService, providerService,
+  billingService, rxWebService, labService, ticklerWebService, formsService, consultationWebService).
+serialization:
+  formats: [JSON, XML]
+  convention: >-
+    Operations expose an explicit representation suffix, e.g. providerService/providers_json returns
+    JSON. Both JSON and XML representations are available for many operations.
+idempotency:
+  supported: false
+  note: no idempotency-key header or mechanism is documented for the OSCAR REST API
+pagination:
+  supported: partial
+  note: >-
+    No single catalog-wide pagination convention is documented; list operations vary by service and
+    some accept start/limit style parameters at the service level.
+versioning:
+  scheme: none-in-path
+  note: >-
+    The REST path (/ws/services) is unversioned; the OSCAR release version is embedded in the
+    deployment web context (e.g. oscar_15) rather than the API path. See lifecycle/.
+error_envelope:
+  format: unstructured
+  note: standard HTTP status codes (401 for auth); no RFC 9457 problem+json envelope documented
+rate_limiting:
+  signaled: false
+  note: no rate-limit headers or quotas documented (self-hosted, per-clinic deployment)
+documentation:
+  runtime: RAML for JAX-RS (generated runtime docs)
+  human: https://oscaremr.atlassian.net/wiki/spaces/OS/overview
+cross_links:
+  authentication: authentication/oscar-emr-authentication.yml
+  conformance: conformance/oscar-emr-conformance.yml
+  lifecycle: lifecycle/oscar-emr-lifecycle.yml

@@ -1,0 +1,36 @@
+generated: '2026-07-24'
+method: searched
+source:
+- https://github.com/scoophealth/oscar
+- https://bitbucket.org/oscaremr/oscar/src/stable/
+- https://get.oscarpro.ca/
+note: >-
+  OSCAR is self-hosted GPL open-source software; there is no hosted API with a formal SLA, status
+  page, or Sunset/Deprecation header contract. Lifecycle is governed by the software release cycle
+  and the commercial OSCAR Pro distribution rather than a hosted-API deprecation policy.
+license: GPL-2.0-or-later
+versioning:
+  scheme: software-release
+  note: >-
+    Versioning follows OSCAR software releases (e.g. OSCAR 12 / 15 / 19), with the release embedded
+    in the deployment web context (oscar_15). The REST /ws/services path is itself unversioned.
+  source_of_truth: https://bitbucket.org/oscaremr/oscar/src/stable/
+distributions:
+  community:
+    name: OSCAR (open source)
+    source: https://bitbucket.org/oscaremr/oscar/src/stable/
+    mirror: https://github.com/scoophealth/oscar
+    branch: stable
+  commercial:
+    name: OSCAR Pro
+    vendor: WELL EMR Group (WELL Health)
+    url: https://get.oscarpro.ca/
+    note: supported distribution delivered to 2,000+ clinics / 10,000+ providers across Canada
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: no published API deprecation policy or RFC 8594 Sunset/Deprecation header support
+sla:
+  url: null
+  note: none for the software itself; availability is a function of each clinic's self-hosted deployment
+status_page: null

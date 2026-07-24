@@ -1,0 +1,39 @@
+generated: '2026-07-24'
+method: searched
+source: https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
+docs: https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
+note: >-
+  OSCAR publishes no OpenAPI/Swagger security schemes (runtime docs are RAML for JAX-RS), so this
+  profile is captured from the developer wiki and the JAX-RS source rather than derived from a spec.
+  The REST web-services layer (/ws/services) is protected by 3-legged OAuth 1.0a; the SMART on FHIR
+  surface exposed by the commercial OSCAR Pro distribution uses OAuth 2.0 / SMART App Launch.
+summary:
+  types:
+  - oauth1a
+  - oauth2
+  oauth1a_flow: 3-legged (request token -> user authorize -> access token)
+  oauth2_context: SMART on FHIR / SMART App Launch (OSCAR Pro)
+schemes:
+- name: OAuth 1.0a
+  type: oauth1a
+  spec: https://oauth.net/core/1.0a/
+  surface: REST web services (/ws/services)
+  flow: three-legged
+  registration: >-
+    Applications are registered in the OSCAR Administration interface under Integration -> REST
+    Clients (application name + valid base URI); registration issues a Client Key and Client Secret.
+  endpoints:
+    initiate: /ws/oauth/initiate
+    authorize: /ws/oauth/authorize?oauth_token=<request_token>
+    token: /ws/oauth/token
+  transport: Authorization header on each REST call; HTTP 401 challenges when authorization is required
+  note: >-
+    Host and web context are deployment-specific (documented example
+    http://localhost:8080/oscar_15/ws/oauth/...); there is no single public authorization server.
+- name: SMART on FHIR / SMART App Launch
+  type: oauth2
+  surface: FHIR HL7 API (OSCAR Pro distribution by WELL EMR Group)
+  note: >-
+    OSCAR Pro exposes a SMART on FHIR HL7 API for third-party app integration (contextual launch,
+    FHIR eReferral). SMART App Launch is OAuth 2.0 based. Endpoints are per-deployment and gated to
+    partners via the apps.health marketplace; no public authorization-server metadata is published.

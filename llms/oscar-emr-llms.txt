@@ -1,0 +1,40 @@
+# OSCAR EMR
+
+> OSCAR EMR is an open-source electronic medical record system created by Dr. David Chan and McMaster University's Department of Family Medicine, and one of Canada's most widely deployed primary-care EMRs. The core software is GPL v2+; the commercially supported OSCAR Pro distribution is delivered by the WELL EMR Group (WELL Health) to 2,000+ clinics and 10,000+ providers across Canada. OSCAR exposes a documented REST web-services API under /ws/services (scheduling, demographics, billing, prescriptions, documents, labs, ticklers, eForms, providers) secured with 3-legged OAuth 1.0a via /ws/oauth. As self-hosted software there is no single public API host or hosted FHIR CapabilityStatement; the API surface is documented on the OSCAR developer wiki and realized per clinic deployment.
+
+## APIs
+
+- [OSCAR REST Web Services API](https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API): REST web-services layer under /ws/services covering scheduling, demographics, billing, prescriptions, documents, labs, ticklers, eForms and providers. 3-legged OAuth 1.0a; runtime docs generated with RAML for JAX-RS (no OpenAPI/Swagger published).
+
+## Authentication
+
+- OAuth 1.0a (3-legged) for REST web services: /ws/oauth/initiate, /ws/oauth/authorize, /ws/oauth/token
+- Clients registered in OSCAR Administration -> Integration -> REST Clients (Client Key + Client Secret)
+- SMART on FHIR / SMART App Launch (OAuth 2.0) for OSCAR Pro FHIR app integration
+- Auth profile: authentication/oscar-emr-authentication.yml
+
+## Standards & Conformance
+
+- REST (JSON/XML) under /ws/services; RAML runtime documentation
+- OAuth 1.0a (REST), OAuth 2.0 / SMART on FHIR (OSCAR Pro)
+- HL7 v2 messaging for clinical data flows; HL7 FHIR (OSCAR Pro FHIR HL7 API; internal FHIR for Ontario BORN / DHIR reporting)
+- Conformance detail: conformance/oscar-emr-conformance.yml
+
+## Docs
+
+- [Developer wiki](https://oscaremr.atlassian.net/wiki/spaces/OS/overview)
+- [Connecting to OSCAR's REST API](https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API)
+- [Documenting the REST API](https://oscaremr.atlassian.net/wiki/spaces/OS/pages/85396074/Documenting+the+REST+API)
+- [OSCAR Pro](https://get.oscarpro.ca/)
+- [apps.health marketplace](https://apps.health/)
+
+## Source
+
+- [GitHub mirror (scoophealth/oscar)](https://github.com/scoophealth/oscar)
+- [Bitbucket (stable)](https://bitbucket.org/oscaremr/oscar/src/stable/)
+
+## Conventions & Lifecycle
+
+- API conventions: conventions/oscar-emr-conventions.yml
+- Lifecycle & versioning: lifecycle/oscar-emr-lifecycle.yml
+- Domain security: security/oscar-emr-domain-security.yml

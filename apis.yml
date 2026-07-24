@@ -64,6 +64,8 @@ apis:
   - type: Authentication
     url: https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
 common:
+- type: DomainSecurity
+  url: security/oscar-emr-domain-security.yml
 - type: Website
   url: https://oscar-emr.com/
 - type: DeveloperPortal
@@ -84,6 +86,20 @@ common:
   url: https://share.hsforms.com/1p6l4kFOyRh6_7RfxVHpYTQcgcz4
 - type: Support
   url: mailto:help@oscarprodesk.ca
+- type: Pricing
+  url: https://get.oscarpro.ca/
+- type: Authentication
+  url: authentication/oscar-emr-authentication.yml
+- type: Conformance
+  url: conformance/oscar-emr-conformance.yml
+- type: Conventions
+  url: conventions/oscar-emr-conventions.yml
+- type: Lifecycle
+  url: lifecycle/oscar-emr-lifecycle.yml
+- type: DomainSecurity
+  url: security/oscar-emr-domain-security.yml
+- type: LLMsTxt
+  url: llms/oscar-emr-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

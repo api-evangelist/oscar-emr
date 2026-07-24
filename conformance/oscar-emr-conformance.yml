@@ -1,0 +1,41 @@
+generated: '2026-07-24'
+method: searched
+source:
+- https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
+- https://get.oscarpro.ca/
+- https://github.com/scoophealth/oscar
+note: >-
+  OSCAR is self-hosted open-source software; conformance is asserted from documented product
+  capability (developer wiki, OSCAR Pro marketing, partner integrations) rather than a hosted
+  CapabilityStatement, since no single public FHIR endpoint or downloadable spec is published.
+standards:
+- id: oauth1a
+  conforms: true
+  evidence: REST web services use 3-legged OAuth 1.0a (/ws/oauth/initiate|authorize|token)
+- id: oauth2
+  conforms: true
+  evidence: SMART on FHIR surface (OSCAR Pro) uses OAuth 2.0 / SMART App Launch
+- id: hl7-v2
+  conforms: true
+  evidence: clinical data flows (labs, immunization/public-health reporting) historically use HL7 v2 messaging
+- id: hl7-fhir
+  conforms: true
+  evidence: OSCAR Pro exposes a FHIR HL7 API; internal FHIR integration used for Ontario BORN and DHIR reporting
+- id: smart-on-fhir
+  conforms: true
+  evidence: OSCAR Pro supports SMART on FHIR contextual app launch (e.g. OceanMD eReferral / SMART launch)
+- id: smart-app-launch
+  conforms: true
+  evidence: SMART App Launch used for third-party OSCAR Pro app integration
+- id: rest
+  conforms: true
+  evidence: JSON REST web-services layer under /ws/services (JAX-RS)
+- id: raml
+  conforms: true
+  evidence: runtime API documentation generated with RAML for JAX-RS
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no application/problem+json error envelope documented
+- id: openapi
+  conforms: false
+  evidence: no OpenAPI/Swagger definition published (RAML runtime docs only)
