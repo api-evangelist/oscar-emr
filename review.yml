@@ -1,0 +1,137 @@
+aid: oscar-emr
+name: OSCAR EMR
+review:
+  question: >-
+    Does OSCAR EMR expose a real, publicly documented developer/API surface, and does it
+    publish a downloadable OpenAPI or an HL7 FHIR CapabilityStatement?
+  answer: partial
+  date: '2026-07-24'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    OSCAR EMR is an open-source primary-care EMR from McMaster University's Department of
+    Family Medicine, commercially delivered as OSCAR Pro by the WELL EMR Group (WELL Health)
+    to 2,000+ clinics and 10,000+ providers across Canada (home market: Canada). It exposes a
+    real, publicly documented REST web-services API - the /ws/services layer covering
+    scheduling, demographics, billing, prescriptions, documents, labs, ticklers, eForms and
+    providers - authenticated with 3-legged OAuth 1.0a via /ws/oauth. Because OSCAR is
+    self-hosted software, there is no single public API host: the documented base path is
+    instance-relative (example http://localhost:8080/oscar_15/ws/services). Runtime API
+    documentation is generated with RAML (RAML for JAX-RS displayed via the MuleSoft API
+    Console deployed alongside the OSCAR instance), NOT OpenAPI/Swagger, and no static
+    downloadable OpenAPI/Swagger document is published. OSCAR also ships an internal HL7 FHIR
+    integration module (org.oscarehr.integration.fhir) used for outbound Ontario public-health
+    and immunization reporting to registries such as BORN and DHIR; it is not a hosted,
+    consumable FHIR REST server, so there is no /metadata CapabilityStatement nor a
+    /.well-known/smart-configuration to fetch. Legacy clinical data exchange uses HL7 v2
+    messaging (labs, documents). OSCAR Pro markets FHIR and SMART on FHIR support for
+    third-party integrations, but those are partner-gated through the apps.health marketplace
+    and not publicly documented. Net: a genuinely documented public REST API surface exists;
+    no downloadable OpenAPI and no hosted FHIR CapabilityStatement were captured.
+  developerPortal:
+    url: https://oscaremr.atlassian.net/wiki/spaces/OS/overview
+    httpStatus: 200
+    confirmed: true
+    note: >-
+      OSCAR EMR developer wiki (Atlassian Confluence, space OS). oscar-emr.com (200) redirects
+      to McMaster's academic home at fammed.mcmaster.ca/oscar-emr/; there is no first-party
+      developer.*/docs.*/api.*/fhir.* subdomain (developer.oscar-emr.com, docs.oscar-emr.com,
+      api.oscar-emr.com, fhir.oscar-emr.com all failed to resolve / connect).
+  fhirCapabilityStatement:
+    captured: false
+    fhirVersion: null
+    resources: []
+    note: >-
+      No hosted FHIR base URL or /metadata CapabilityStatement and no
+      /.well-known/smart-configuration exist for OSCAR as shipped. FHIR appears only as an
+      internal outbound integration in source (org.oscarehr.integration.fhir; destinations
+      BORN, DHIR, BIS) for Ontario immunization/registry reporting - not a consumable FHIR
+      REST server.
+  downloadableSpecs:
+    count: 0
+    openApiHarvested: false
+    provenance: >-
+      No RAML, Swagger, OpenAPI, WADL or CapabilityStatement file exists in the OSCAR source
+      tree (scoophealth/oscar @ stable, 11,905 paths inspected). The REST API's RAML
+      documentation is generated at build/deploy time from JAX-RS annotations and rendered by
+      the API Console on the OSCAR host, so there is no static spec to harvest verbatim.
+  authModel:
+    scheme: OAuth 1.0a (3-legged)
+    endpoints:
+      - POST /ws/oauth/initiate
+      - GET  /ws/oauth/authorize?oauth_token={request_token}
+      - POST /ws/oauth/token
+    smartOnFhirScopes: []
+    note: >-
+      Core REST web-services API uses 3-legged OAuth 1.0a; apps register as REST Clients in
+      the OSCAR Administration interface and provider users authorize access. OSCAR Pro
+      additionally markets SMART on FHIR / OAuth2 for partner integrations via apps.health,
+      but SMART scopes (e.g. patient/*.read) are not publicly documented.
+  standardsConformance:
+    usCore: false
+    ukCore: false
+    auCore: false
+    caCore: partial
+    daVinci: false
+    carin: false
+    note: >-
+      Canadian context: no evidence of formal pan-Canadian FHIR (CA Core / CA Baseline)
+      conformance publication. FHIR usage is scoped to Ontario provincial reporting seams
+      (BORN, DHIR immunization). No US Core / UK Core / AU Core / Da Vinci / CARIN conformance.
+  homeMarket: Canada
+  gating: >-
+    Mixed. The core REST web-services API is publicly documented and available in the
+    open-source software (self-serve for anyone who deploys OSCAR). Third-party integration
+    with OSCAR Pro production clinics is partner-gated behind the apps.health program
+    (contact-form onboarding). No public hosted sandbox with a fixed base URL.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: instance-relative (example http://localhost:8080/oscar_15/ws/services)
+      documented: true
+      note: OSCAR REST web-services layer under /ws/services; self-hosted, no fixed public host.
+    - protocol: OAuth 1.0a
+      scheme: https
+      documented: true
+      note: Three-legged OAuth 1.0a handshake at /ws/oauth/{initiate,authorize,token}.
+    - protocol: HL7 v2
+      scheme: mllp/file
+      documented: true
+      note: Legacy clinical messaging for labs and documents.
+    - protocol: HL7 FHIR
+      scheme: https
+      documented: true
+      note: >-
+        Internal outbound FHIR integration for Ontario registry/immunization reporting
+        (BORN, DHIR); not a consumable inbound FHIR REST server.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented.
+sources:
+  - url: https://oscaremr.atlassian.net/wiki/spaces/OS/overview
+    type: DeveloperPortal
+    note: OSCAR EMR developer wiki space (Confluence). HTTP 200.
+  - url: https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
+    type: Documentation
+    note: >-
+      REST API base path /ws/services and OAuth 1.0a endpoints (/ws/oauth/initiate,
+      /authorize, /token); REST clients registered via Administration UI. HTTP 200.
+  - url: https://oscaremr.atlassian.net/wiki/spaces/OS/pages/85396074/Documenting+the+REST+API
+    type: APIReference
+    note: REST API documented with RAML (RAML for JAX-RS + MuleSoft API Console), not Swagger/OpenAPI. HTTP 200.
+  - url: https://github.com/scoophealth/oscar
+    type: SourceCode
+    note: >-
+      GPL v2+ open-source mirror of Bitbucket oscaremr/oscar. Inspected stable tree (11,905
+      paths): no .raml/swagger/openapi/CapabilityStatement files; FHIR present as Java
+      integration package org.oscarehr.integration.fhir (BORN/DHIR/BIS). HTTP 200.
+  - url: https://apps.health/for-developers/
+    type: Marketplace
+    note: WELL Health apps.health integration marketplace for OSCAR Pro; partner onboarding via contact form. HTTP 200.
+  - url: https://oscar-emr.com/
+    type: Website
+    note: 200; redirects to McMaster Department of Family Medicine OSCAR home (fammed.mcmaster.ca/oscar-emr/).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
