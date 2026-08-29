@@ -17,6 +17,17 @@ description: >-
   the apps.health marketplace. As self-hosted software there is no single public API host or
   hosted FHIR CapabilityStatement; the API surface is documented on the OSCAR EMR developer
   wiki and realized per clinic deployment.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Healthcare
