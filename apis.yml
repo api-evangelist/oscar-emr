@@ -49,7 +49,7 @@ tags:
 - EHR
 - EMR
 - Primary Care
-- Open-Source
+- Open Source
 - FHIR
 - HL7
 - Interoperability
@@ -67,6 +67,7 @@ tags_raw:
 - Interoperability
 - SMART on FHIR
 - OAuth
+- Open-Source
 created: '2026-07-24'
 modified: '2026-07-24'
 specificationVersion: '0.23'
