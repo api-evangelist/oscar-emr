@@ -46,8 +46,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.j
 tags:
 - Healthcare
 - Canada
-- EHR
-- EMR
+- Electronic Health Records
 - Primary Care
 - Open Source
 - FHIR
@@ -87,6 +86,11 @@ apis:
     OpenAPI/Swagger, and there is no downloadable static spec published.
   humanURL: https://oscaremr.atlassian.net/wiki/spaces/OS/pages/79855638/Connecting+to+OSCAR's+REST+API
   tags:
+  - Electronic Health Records
+  - REST
+  - Primary Care
+  - Canada
+  tags_raw:
   - EHR
   - EMR
   - REST
